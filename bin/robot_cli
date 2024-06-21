@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/environment'
+
+robot = Robot.first_or_create
+
+puts "Toy Robot Simulator"
+loop do
+  print "> "
+  input = gets.chomp
+  command, *args = input.split
+
+  case command
+  when 'PLACE'
+    x, y, direction = args.first.split(',')
+    robot.place(x.to_i, y.to_i, direction)
+  when 'MOVE'
+    robot.move
+  when 'LEFT'
+    robot.left
+  when 'RIGHT'
+    robot.right
+  when 'REPORT'
+    puts robot.report
+  when 'EXIT'
+    break
+  else
+    puts "Invalid command"
+  end
+end
